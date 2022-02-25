@@ -1,7 +1,5 @@
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 
 class Streams{
@@ -11,10 +9,9 @@ class Streams{
         //obj.flatMap(o->o.stream()).forEach(a->System.out.println(a));
 
 
-        Predicate<Movies> predicate = m -> m.getId() > 1;
+        //Predicate<Movies> predicate = m -> m.getId() > 1;
         var movies = List.of(new Movies("Hello",10)
                                 ,new Movies("Ji",20)
-                                ,new Movies("Hanji",20)
                                 ,new Movies("Bolo",40));
         //movies.stream().filter(predicate).forEach(a-> System.out.println(a.getId()));
 
@@ -45,7 +42,22 @@ class Streams{
     //         .reduce(0,Integer::sum);
     //     System.out.println(sum);
 
+    // var newMovies = movies.stream()
+    //     .filter(m -> m.getId() > 10)
+    //     .collect(Collectors.toList()); //toSet() toMap()
 
-    
+        // var newMovies = movies.stream()
+        // .filter(m -> m.getId() > 10)
+        // .collect(Collectors.toMap(Movies::getId,Movies::getName)); //toSet()
+
+        // var newMovies = movies.stream()
+        // .filter(m -> m.getId() > 10)
+        // .collect(Collectors.summarizingInt(Movies::getId));
+
+        var newMovies = movies.stream()
+        .filter(m -> m.getId() > 10)
+        .map(Movies::getName)
+        .collect(Collectors.joining("-"));
+        System.out.println(newMovies);
     }
 }
